@@ -1,4 +1,6 @@
 " Download Vim-plug from: https://github.com/junegunn/vim-plug.git
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " source ~/.vimrc
 " Excute :PlugInstall
 " Excute :PlugUpdate
@@ -13,9 +15,6 @@
 
 
 call plug#begin('~/.vim/plugged')
-
-" Refer to my github to solve issue: https://github.com/yushengsu-thu/hack-vimrc/blob/master/README.md
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Add trace code tool: Ctags, gutentags
 Plug 'ludovicchabant/vim-gutentags'
@@ -113,6 +112,14 @@ let g:livepreview_engine = 'pdflatex'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mouse
 set mouse=a
+
+" Sync vim yank with system clipboard
+set clipboard=unnamed
+
+" Toggle mouse mode: F2 to switch between vim mouse and terminal mouse
+" - mouse=a: vim mode (scrolling, click positioning, visual select + y)
+" - mouse=:  terminal mode (drag select + Cmd+C/Cmd+V like IDE)
+nnoremap <F2> :let &mouse = (&mouse == 'a' ? '' : 'a') \| echo 'mouse=' . &mouse<CR>
 
 " Show index of a line
 set nu
@@ -500,5 +507,3 @@ endif
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-let g:coc_disable_startup_warning = 1
